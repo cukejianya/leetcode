@@ -1,22 +1,11 @@
-from math import log2, ceil
+from math import log2
 
 class Solution:
     def kthGrammar(self, N, K):
-        n = int(ceil(log2(K)))
-        print(n)
-        grammar_list = self.kthGrammarRecur(n)
-        return grammar_list[K-1]
-
-    def kthGrammarRecur(self, N):
-        if N == 1:
-            return [0, 1]
-        grammar_list = self.kthGrammarRecur(N - 1)
-        starting_pos = pow(2, N - 2)
-        print(starting_pos, grammar_list)
-        for i in range(starting_pos, len(grammar_list)):
-            if grammar_list[i] == 0:
-                grammar_list += [0, 1]
-            else:
-                grammar_list += [1, 0]
-        return grammar_list
-
+        print('K:',K, 'N:', N)
+        if K == 1:
+            return 0
+        N = int(log2(K)) 
+        max_num = pow(2, N)
+        K = max_num / 2 if K % max_num == 0 else K % max_num
+        return 1 if self.kthGrammar(N, K) == 0 else 0
