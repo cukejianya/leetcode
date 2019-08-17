@@ -1,18 +1,13 @@
 class Solution:
     def mySqrt(self, x):
-        high = x / 2
+        high = x
         low = 0
-        mid = int((high - low) / 2)
-        possible_sqrt = int(x/mid)
-        print(mid, possible_sqrt)
-        while possible_sqrt != mid:
-            if possible_sqrt > mid:
-                low = mid
-            else:
+        mid = int((high + low) / 2)
+        while low != mid:
+            print(mid)
+            if x < mid**2:
                 high = mid
-            mid = int((high - low) / 2)
-            possible_sqrt = int(x/mid)
+            else:
+                low = mid
+            mid = int((high + low) / 2)
         return mid
-
-Solution().mySqrt(8)
-            
