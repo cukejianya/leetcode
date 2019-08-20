@@ -9,27 +9,25 @@ class Solution:
                 end = mid 
             mid = (end + start) // 2
         return mid
-    
-    def get_dist(self, arr, a, b):
-        return abs(arr[a] + -1*arr[b]) 
 
     def findClosestElements(self, arr, k, x):
-        mid = self.find_x(arr, x)
+        start = end = self.find_x(arr, x)
         if k == 1:
-            return [arr[mid]]
-        start = end = mid
+            return [arr[start]]            
         len_arr = len(arr)
-
-        for i in range(k):
-            if start == 0:
+        start = start - 1 if start > 0 and abs(arr[start] - x) > abs(arr[end + 1] - x) else start
+        end = end + 1 if start == end and end < len_arr else end
+        while k > end - start:
+            if start <= 0:
+                start = 0
                 end = k
                 break
-            if end == len_arr:
+            if end + 1 >= len_arr:
+                end = len_arr
                 start = end - k 
                 break
-            if self.get_dist(arr, start, mid) > self.get_dist(arr, end, mid):
+            if abs(arr[start - 1] - x) > abs(arr[end + 1] - x):
                 end += 1
             else:
                 start -= 1
-
         return arr[start:end]
