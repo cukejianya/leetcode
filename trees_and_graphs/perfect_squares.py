@@ -1,14 +1,13 @@
 class Solution:
     def numSquares(self, n):
-        sq_rt = int(sqrt(n))
+        sq_rt = int(n ** 0.5)
         if sq_rt**2 == n:
             return 1
-        min_list = [0] + [2**32] * n
-        for num in range(n):
-            for root in range(sq_rt):
-                sq = root**2
-                if sq > num:
-                    break
-                min_list[num] =  min(min_list[num - sq] + 1, min_list[num])
-        return min_list[n] 
-            
+        for root in range(sq_rt + 1):
+            if (n - root**2) ** 0.5 % 1 == 0:
+                return 2
+        while(n % 2 == 0 or n == 0):
+            n /= 4
+        if (n % 8 == 7):
+            return 4
+        return 3
