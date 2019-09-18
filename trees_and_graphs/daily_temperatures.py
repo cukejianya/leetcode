@@ -1,17 +1,13 @@
 class Solution:
     def dailyTemperatures(self, T):
-        hottest_temps = []
-        days_till_warm = []
         total_days = len(T)
+        hottest_days = []
+        days_till_warm = [0] * total_days
         for i in range(total_days - 1, -1, -1):
             temp = T[i]
-            while hottest_temps:
-                day, hot_temp = hottest_temps.pop()
-                if hot_temp > temp:
-                    hottest_temps.append((day, hot_temp))
-                    days_till_warm.insert(0, day - i)
-                    break
-            if not hottest_temps:
-                days_till_warm.insert(0, 0)
-            hottest_temps.append((i, temp))
+            while hottest_days and T[i] >= T[hottest_days[-1]]:
+                hottest_days.pop()
+            day_diff = hottest_days[-1] - i if hottest_days else 0
+            days_till_warm[i] = day_diff
+            hottest_days.append(i)
         return days_till_warm
