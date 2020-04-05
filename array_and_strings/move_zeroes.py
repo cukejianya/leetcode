@@ -3,13 +3,8 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        size = len(nums)
-        idx = 0
-        while(idx < size):
-            x = nums[idx]
-            if x == 0:
-                nums.pop(idx)
-                nums.append(x)
-                size -= 1
-            else:
-                idx += 1
+        zero_idx = 0
+        for idx in range(len(nums)):
+            if nums[idx] != 0:
+                nums[idx], nums[zero_idx] = nums[zero_idx], nums[idx] 
+                zero_idx += 1
