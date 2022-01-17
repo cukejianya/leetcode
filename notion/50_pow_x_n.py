@@ -1,8 +1,9 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         if n == 0:
-            return x
+            return 1
         if n == 1:
             return x
-        powered_num = myPow(x, n // 2) * myPow(x, n // 2)
-        return powered_num if n % 2 == 0 else powered_num * x
+        num = self.myPow(x, n // 2)
+        extra = x if n % 2 == 1 else 1
+        return num * num * extra
