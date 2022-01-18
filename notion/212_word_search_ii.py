@@ -1,47 +1,37 @@
 class Node:
-    def __init__(self):
-        self.nextLetter = {}
+    def __init__:
+        self.next_letters = {}
+        self.end_of_word = False
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        self.board = board
-        self.words = set(words)
-        self.wordsFound = set()
         self.trie = Node()
+        self.board = board
+        self.words_found = []
         for word in words:
-            self.addWord(word)
-        for row in range(board):
-            for col in range(row):
-                self.findWord('', (row, col), self.trie)
+            self.add_word(word)
 
-    def findWord(self, new_word, pos, curr_node):
-        row = pos[0]
-        col = pos[1]
-        letter = board[row][col]
-        if not letter in curr_node.nextLetter:
-            return
-        new_word += letter
-        if new_word in self.words:
-            self.wordsFound.add(new_word)
-        curr_node = curr_node.nextLetter[letter]
-        up = (row - 1, col)
-        down = (row + 1, col)
-        left = (row, col - 1)
-        right = (row, col + 1)
-        if row > 0:
-            self.findWord(new_word, up, curr_node)
-        if row < len(board) - 1:
-            self.findWord(new_word, down, curr_node)
-        if col > 0:
-            self.findWord(new_word, left, curr_node)
-        if col < len(board[0]) - 1:
-            self.findWord(new_word, right, curr_node)
+        pass
 
-    def addWord(self, word):
+    def add_word(self, word):
         curr_node = self.trie
         for letter in word:
-            if not letter in curr_node.nextLetter:
-                curr_node.nextLetter[letter] = Node()
-            curr_node = curr_node.nextLetter[letter]
+            if not letter in curr_node.next_letters:
+                curr_node.next_letters[letter] = Node()
+            curr_node = curr_node.next_letters[letter]
+
+    def find_word(self, pos, word, root, cells_visited=None):
+        if word == '':
+            return
+        row, col = pos
+        cell = board[row][col]
+        letter = word[0]
+        if letter != cell:
+            return
+        if not letter in root.next_letters:
+            return 
+        
+
+
 
 
