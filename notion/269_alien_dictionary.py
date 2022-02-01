@@ -1,7 +1,10 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        mapping = {} 
+        graph = {}
         for word in words:
-            for idx in word:
-                if ch in mapping:
-                    
+            for idx in range(len(word)):
+                ch word[idx]
+                if not ch in graph:
+                    graph[ch] = set()
+                if idx > 0:
+                    graph[]
