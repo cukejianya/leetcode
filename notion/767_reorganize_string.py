@@ -1,23 +1,20 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
-        dict_ch = {}
+        mapping = {}
         for ch in s:
-            if ch in dict_ch:
-                dict_ch += 1
-            else:
-                dict_ch = 1
-        max_ch_count = dict_ch[max(dict_ch)]
-        if max_ch_count > len(s) // 2:
-            return ""
-        new_array = [""] * max_ch_count
+            if ch not in mapping:
+                mapping[ch] = 0
+            mapping[ch] += 1
+        size = len(s) 
+        half_size = size // 2 + size % 2
+        arr = [""] * half_size
         idx = 0
-        for ch, count in dict_ch.items():
-            while(count > 0):
-                new_array[max_ch_count % idx] += ch
+        for ch, count in mapping.items():
+            if count >= half_size:
+                return ""
+            while count:
+                arr[idx % half_size] += ch
                 count -= 1
                 idx += 1
-        return "".join(new_array)
-
-                
-
+        return "".join(arr)
 
