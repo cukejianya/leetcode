@@ -2,23 +2,24 @@
 # def read4(buf4: List[str]) -> int:
 
 class Solution:
-    chars = []
+    def __init__(self):
+        self.extra = []
     def read(self, buf: List[str], n: int) -> int:
-        count = 0
-        while(count < n and Solution.chars):
-            ch = Solution.chars.pop()
-            buf.append(ch)
-            count += 1
-        if n == count:
-            return count
-        amount = 4
-        while(count < n and amount == 4):
-            buf4 = []
-            amount = read4(buf4)
-            while(count < n and buf4):
-                ch = buf4.pop()
-                buf.append(ch)
-                count += 1
-            if buf4:
-                Solution.chars = buf4
-        return count
+        total = 0
+        while self.extra and n:
+            buf.append(self.extra.pop(0))
+            n -= 1
+            total += 1
+        buf4 = []
+        count = 1
+        while n > 0 and count:
+            count = read4(buf4)
+            while n > 0:
+                buf.append(buf4.pop(0))
+                n -=1
+                count -= 1
+                total += 1
+            while count and n < 1:
+                self.extra.append(buf4.pop(0))
+                count -= 1
+        return total 
