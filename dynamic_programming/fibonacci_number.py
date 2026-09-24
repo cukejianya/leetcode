@@ -1,21 +1,11 @@
 class Solution:
     def __init__(self):
-        self.fib_dict = {0: 0, 1: 1}
+        self.fib_list = [0,1] + [None] * 28
 
     def fib(self, N):
-        if N == 0 or N == 1:
-            return N
-
-        if (N - 1) in self.fib_dict:
-            n_1 = self.fib_dict[N - 1]
-        else:
-            n_1 = self.fib(N - 1)
-            self.fib_dict[N - 1] = n_1
-
-        if (N - 2) in self.fib_dict:
-            n_2 = self.fib_dict[N - 2]
-        else:
-            n_2 = self.fib(N - 2)
-            self.fib_dict[N - 2] = n_2
+        if (self.fib_list[N] is not None):
+            return self.fib_list[N]
         
-        return n_1 + n_2
+        fib_val = self.fib(N - 1) + self.fib(N - 2)
+        self.fib_list[N] = fib_val
+        return fib_val
