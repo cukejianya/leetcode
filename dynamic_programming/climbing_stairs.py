@@ -1,21 +1,14 @@
 class Solution:
-    def __init__(self):
-        self.fib_dict = {0: 1, 1: 1}
-        
-    def climbStairs(self, n):
-        if n == 0 or n == 1:
-            return 1
-        
-        if (n - 1) in self.fib_dict:
-            n_1 = self.fib_dict[n - 1]
-        else:
-            n_1 = self.climbStairs(n - 1)
-            self.fib_dict[n - 1] = n_1
+    def rec(self, n: int, dp: list[int|None]) -> int:
+        if n == 1 or n == 2:
+            return n
 
-        if (n - 2) in self.fib_dict:
-            n_2 = self.fib_dict[n - 2]
-        else:
-            n_2 = self.climbStairs(n - 2)
-            self.fib_dict[n - 2] = n_2
+        if dp[n] is not None:
+            return dp[n]
 
-        return n_2 + n_1
+        # dp[n] = self.rec(n-1, dp) + 1 + self.rec(n-2, dp) + 2
+        dp[n] = self.rec(n-1, dp) + self.rec(n-2, dp)
+        return dp[n]
+
+    def climbStairs(self, n: int) -> int:
+        return self.rec(n, [None] * (n+1))
